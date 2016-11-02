@@ -6,7 +6,7 @@ then
 	exit
 fi
 
-yum install -y dbus-python libxml2-python m2crypto pyOpenSSL python-dmidecode python-ethtool python-gudev usermode python-dateutil python-rhsm
+yum install -y dbus-python libxml2-python m2crypto pyOpenSSL python-dmidecode python-ethtool python-gudev usermode python-dateutil python-rhsm python-hwdata python-kitchen system-logos
 
 mkdir /tmp/rhel
 cp ./rhel.pem /tmp/rhel/rhel.pem
