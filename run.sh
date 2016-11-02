@@ -6,7 +6,7 @@ then
 	exit
 fi
 
-yum install -y dbus-python libxml2-python m2crypto pyOpenSSL python-dmidecode python-ethtool python-gudev usermode python-dateutil python-rhsm python-hwdata python-kitchen system-logos
+yum install -y dbus-python libxml2-python m2crypto pyOpenSSL python-dmidecode python-ethtool python-gudev usermode python-dateutil python-rhsm python-hwdata python-kitchen
 
 mkdir /tmp/rhel
 cp ./rhel.pem /tmp/rhel/rhel.pem
@@ -22,10 +22,10 @@ wget 'https://github.com/puteulanus/c2r/raw/master/rpms/subscription-manager-1.1
 wget 'https://github.com/puteulanus/c2r/raw/master/rpms/yum-3.4.3-132.el7.noarch.rpm'
 wget 'https://github.com/puteulanus/c2r/raw/master/rpms/yum-metadata-parser-1.1.4-10.el7.x86_64.rpm'
 wget 'https://github.com/puteulanus/c2r/raw/master/rpms/yum-rhn-plugin-2.0.1-5.el7.noarch.rpm'
+wget 'https://github.com/puteulanus/c2r/raw/master/rpms/redhat-logos-70.0.3-4.el7.noarch.rpm'
 wget https://www.redhat.com/security/fd431d51.txt
 rpm --import fd431d51.txt
 rpm -e --nodeps centos-release
-rpm -e centos-release-cr
 rpm -qa centos\* redhat\* | xargs rpm -e
 rpm -Uhv --force *.rpm
 rpm -e yum-plugin-fastestmirror
@@ -33,7 +33,8 @@ yum clean all
 
 subscription-manager import --certificate=./rhel.pem
 
-yum update
+yum update -y
 rpm -qa --qf "%{NAME} %{VENDOR}\n" | grep CentOS | cut -d' ' -f1 | grep -v ^kernel | sort | tee lst
 yum reinstall $(cat lst)
-yum distro-sync
+yum distro-sync -y
+yum install -y system-logos
