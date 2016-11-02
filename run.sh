@@ -1,15 +1,8 @@
 #!/bin/bash
 
-if [ ! -f ./rhel.pem ]
-then
-	echo 'No rhel.pem file found!'
-	exit
-fi
-
 yum install -y dbus-python libxml2-python m2crypto pyOpenSSL python-dmidecode python-ethtool python-gudev usermode python-dateutil python-rhsm python-hwdata python-kitchen
 
 mkdir /tmp/rhel
-cp ./rhel.pem /tmp/rhel/rhel.pem
 cd /tmp/rhel
 wget 'https://github.com/puteulanus/c2r/raw/master/rpms/yum-utils-1.1.31-34.el7.noarch.rpm'
 wget 'https://github.com/puteulanus/c2r/raw/master/rpms/redhat-release-server-7.2-9.el7.x86_64.rpm'
@@ -22,19 +15,20 @@ wget 'https://github.com/puteulanus/c2r/raw/master/rpms/subscription-manager-1.1
 wget 'https://github.com/puteulanus/c2r/raw/master/rpms/yum-3.4.3-132.el7.noarch.rpm'
 wget 'https://github.com/puteulanus/c2r/raw/master/rpms/yum-metadata-parser-1.1.4-10.el7.x86_64.rpm'
 wget 'https://github.com/puteulanus/c2r/raw/master/rpms/yum-rhn-plugin-2.0.1-5.el7.noarch.rpm'
-#wget 'https://github.com/puteulanus/c2r/raw/master/rpms/redhat-logos-70.0.3-4.el7.noarch.rpm'
 wget https://www.redhat.com/security/fd431d51.txt
 rpm --import fd431d51.txt
 rpm -e --nodeps centos-release
-#rpm -qa centos\* redhat\* | xargs rpm -e --nodeps
 rpm -Uhv --force *.rpm
 rpm -e yum-plugin-fastestmirror
 yum clean all
 
-subscription-manager import --certificate=./rhel.pem
-
 yum update -y
 rpm -qa --qf "%{NAME} %{VENDOR}\n" | grep CentOS | cut -d' ' -f1 | grep -v ^kernel | sort | tee lst
-yum reinstall $(cat lst)
+yum reinstall $(cat lst) -y
 yum distro-sync -y
+rpm -e --nodeps centos-logos
 yum install -y system-logos
+subscription-manager register
+subscription-manager attach
+
+rpm -qa centos\*
