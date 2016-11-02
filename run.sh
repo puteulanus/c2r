@@ -22,11 +22,11 @@ wget 'https://github.com/puteulanus/c2r/raw/master/rpms/subscription-manager-1.1
 wget 'https://github.com/puteulanus/c2r/raw/master/rpms/yum-3.4.3-132.el7.noarch.rpm'
 wget 'https://github.com/puteulanus/c2r/raw/master/rpms/yum-metadata-parser-1.1.4-10.el7.x86_64.rpm'
 wget 'https://github.com/puteulanus/c2r/raw/master/rpms/yum-rhn-plugin-2.0.1-5.el7.noarch.rpm'
-wget 'https://github.com/puteulanus/c2r/raw/master/rpms/redhat-logos-70.0.3-4.el7.noarch.rpm'
+#wget 'https://github.com/puteulanus/c2r/raw/master/rpms/redhat-logos-70.0.3-4.el7.noarch.rpm'
 wget https://www.redhat.com/security/fd431d51.txt
 rpm --import fd431d51.txt
 rpm -e --nodeps centos-release
-rpm -qa centos\* redhat\* | xargs rpm -e
+#rpm -qa centos\* redhat\* | xargs rpm -e --nodeps
 rpm -Uhv --force *.rpm
 rpm -e yum-plugin-fastestmirror
 yum clean all
