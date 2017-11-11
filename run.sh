@@ -1,12 +1,6 @@
 #!/bin/bash
 
-if [ ! -f ./rhel.pem ]
-then
-	echo 'No rhel.pem file found!'
-	exit
-fi
-
-yum install -y dbus-python libxml2-python m2crypto pyOpenSSL python-dmidecode python-ethtool python-gudev usermode python-dateutil python-rhsm python-hwdata python-kitchen
+yum install -y wget dbus-python libxml2-python m2crypto pyOpenSSL python-dmidecode python-ethtool python-gudev usermode python-dateutil python-rhsm python-hwdata python-kitchen
 
 mkdir /tmp/rhel
 cp ./rhel.pem /tmp/rhel/rhel.pem
@@ -29,7 +23,8 @@ rpm -Uhv --force *.rpm
 rpm -e yum-plugin-fastestmirror
 yum clean all
 
-subscription-manager import --certificate=./rhel.pem
+subscription-manager register
+subscription-manager attach --auto
 
 yum update -y
 rpm -qa --qf "%{NAME} %{VENDOR}\n" | grep CentOS | cut -d' ' -f1 | grep -v ^kernel | sort | tee lst
@@ -39,3 +34,6 @@ rpm -e --nodeps centos-logos
 yum install -y system-logos
 
 rpm -qa centos\*
+
+subscription-manager repos --enable rhel-7-server-optional-rpms
+subscription-manager repos --enable rhel-7-server-extras-rpms 
