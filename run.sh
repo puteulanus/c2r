@@ -1,6 +1,8 @@
 #!/bin/bash
 
-yum install -y wget dbus-python libxml2-python m2crypto pyOpenSSL python-dmidecode python-ethtool python-gudev usermode python-dateutil python-rhsm python-hwdata python-kitchen
+yum install -y wget dbus-python libxml2-python m2crypto pyOpenSSL python-dmidecode \
+    python-ethtool python-gudev usermode python-dateutil python-rhsm python-hwdata \
+    python-kitchen
 
 mkdir /tmp/rhel
 cp ./rhel.pem /tmp/rhel/rhel.pem
