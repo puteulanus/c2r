@@ -2,10 +2,9 @@
 
 yum install -y wget dbus-python libxml2-python m2crypto pyOpenSSL python-dmidecode \
     python-ethtool python-gudev usermode python-dateutil python-rhsm python-hwdata \
-    python-kitchen
+    python-kitchen newt-python gobject-introspection pygobject3-base virt-what
 
 mkdir /tmp/rhel
-cp ./rhel.pem /tmp/rhel/rhel.pem
 cd /tmp/rhel
 wget 'https://github.com/puteulanus/c2r/raw/master/rpms/yum-utils-1.1.31-34.el7.noarch.rpm'
 wget 'https://github.com/puteulanus/c2r/raw/master/rpms/redhat-release-server-7.2-9.el7.x86_64.rpm'
