@@ -37,4 +37,5 @@ yum install -y system-logos
 rpm -qa centos\*
 
 subscription-manager repos --enable rhel-7-server-optional-rpms
-subscription-manager repos --enable rhel-7-server-extras-rpms 
+subscription-manager repos --enable rhel-7-server-extras-rpms
+subscription-manager repos --enable rhel-server-rhscl-7-rpms
