@@ -2,7 +2,7 @@
 
 yum install -y wget dbus-python libxml2-python m2crypto pyOpenSSL python-dmidecode \
     python-ethtool python-gudev usermode python-dateutil python-rhsm python-hwdata \
-    python-kitchen newt-python gobject-introspection pygobject3-base virt-what
+    python-kitchen newt-python gobject-introspection pygobject3-base virt-what python-setuptools
 
 mkdir /tmp/rhel
 cd /tmp/rhel
